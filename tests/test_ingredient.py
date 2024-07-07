@@ -1,14 +1,15 @@
 import pytest
 
 from ingredient import Ingredient
+from ingredient_types import *
 
 
 class TestIngredient:
     @pytest.mark.parametrize(
         'ingredient_type',
         [
-            ['начинка'],
-            ['соус']
+            [INGREDIENT_TYPE_FILLING],
+            [INGREDIENT_TYPE_SAUCE]
         ]
     )
     def test_ingredient_type_true(self, ingredient_type):
