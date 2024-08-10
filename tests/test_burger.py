@@ -4,33 +4,41 @@ import pytest
 
 from bun import Bun
 from burger import Burger
+from helpers import Helpers
 from ingredient import Ingredient
 from ingredient_types import *
 
 
 class TestBurger:
     def test_set_buns_true(self):
-        bun = Bun('Космическая', 400)
+        bun = Bun(Helpers.create_name(), Helpers.create_price())
         burger = Burger()
         burger.set_buns(bun)
         assert burger.bun.name == bun.name and burger.bun.price == bun.price
 
-    def test_add_ingredient_true(self):
-        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
+    @pytest.mark.parametrize(
+        'ingredient_type',
+        [
+            [INGREDIENT_TYPE_FILLING],
+            [INGREDIENT_TYPE_SAUCE]
+        ]
+    )
+    def test_add_ingredient_true(self, ingredient_type):
+        ingredient = Ingredient(ingredient_type, Helpers.create_name(), Helpers.create_price())
         burger = Burger()
         burger.add_ingredient(ingredient)
         assert len(burger.ingredients) > 0
 
     def test_remove_ingredient_index_empty_list(self):
-        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
+        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, Helpers.create_name(), Helpers.create_price())
         burger = Burger()
         burger.add_ingredient(ingredient)
         burger.remove_ingredient(0)
         assert len(burger.ingredients) == 0
 
     def test_move_ingredient_index_changed(self):
-        ingredient1 = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
-        ingredient2 = Ingredient(INGREDIENT_TYPE_FILLING, 'плазфффффмилли', 150)
+        ingredient1 = Ingredient(INGREDIENT_TYPE_FILLING, Helpers.create_name(), Helpers.create_price())
+        ingredient2 = Ingredient(INGREDIENT_TYPE_FILLING, Helpers.create_name(), Helpers.create_price())
         burger = Burger()
         burger.add_ingredient(ingredient1)
         burger.add_ingredient(ingredient2)
@@ -60,8 +68,8 @@ class TestBurger:
     @pytest.mark.parametrize(
         'bun_name, bun_price, ingredient_type, ingredient_name, ingredient_price, burger_price',
         [
-            ['sfs', 500, INGREDIENT_TYPE_SAUCE, 'hk', 200, 1200],
-            ['sedfas', 100, INGREDIENT_TYPE_FILLING, 'ftfhf', 300, 500]
+            [Helpers.create_name(), 500, INGREDIENT_TYPE_SAUCE, Helpers.create_name(), 200, 1200],
+            [Helpers.create_name(), 100, INGREDIENT_TYPE_FILLING, Helpers.create_name(), 300, 500]
         ]
     )
     def test_get_receipt_return_receipt(self, bun_name, bun_price, ingredient_type, ingredient_name, ingredient_price, burger_price):
