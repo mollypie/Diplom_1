@@ -17,21 +17,21 @@ class TestIngredient:
         assert ingredient.type == ingredient_type
 
     def test_name_of_ingredient_true(self):
-        ingredient = Ingredient('начинка', 'плазмилли', 50)
+        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
         assert ingredient.name == 'плазмилли'
 
     def test_price_of_ingredient_true(self):
-        ingredient = Ingredient('начинка', 'плазмилли', 50)
+        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
         assert ingredient.price == 50
 
     def test_get_price_return_ingredient_price(self):
-        ingredient = Ingredient('начинка', 'плазмилли', 50)
+        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
         assert ingredient.get_price() == 50
 
     def test_get_name_return_ingredient_name(self):
-        ingredient = Ingredient('начинка', 'плазмилли', 50)
+        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
         assert ingredient.get_name() == 'плазмилли'
 
     def test_get_type_return_ingredient_type(self):
-        ingredient = Ingredient('начинка', 'плазмилли', 50)
-        assert ingredient.get_type() == 'начинка'
+        ingredient = Ingredient(INGREDIENT_TYPE_FILLING, 'плазмилли', 50)
+        assert ingredient.get_type() == INGREDIENT_TYPE_FILLING
